@@ -1,20 +1,12 @@
 package oop.day3.bookStore;
 
-public class Customer {
-    private String name;
-    private String phoneNumber;
-    private Book[] basket = new Book[3];
-
+public class Customer extends Person {
     public Customer(String name, String phoneNumber) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
+        super(name, phoneNumber);
     }
 
-    public String getCustomerInfo() {
+    @Override
+    public String getPersonInfo() {
         return "고객 이름 : %s%n고객 전화번호 : %s%n".formatted(this.name, this.phoneNumber);
-    }
-
-    public Book[] getBasket() {
-        return basket;
     }
 }

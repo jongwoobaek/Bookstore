@@ -1,43 +1,26 @@
 package oop.day3.bookStore;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Order {
-    private Book[] bookList = {
-            new Book.Builder()
-                    .id("ISBN1234")
-                    .category("쉽게 배우는 JSP 웹 프로그래밍")
-                    .price(27000)
-                    .author("송미영")
-                    .title("단계별로 쇼핑몰을 구현하며 배우는 JSP 웹 프로그래밍")
-                    .publisher("IT전문서")
-                    .date("2018/10/08")
-                    .build(),
-            new Book.Builder()
-                    .id("ISBN1235")
-                    .category("안드로이드 프로그래밍")
-                    .price(33000)
-                    .author("우재남")
-                    .title("실습 단계별 명쾌한 멘토링!")
-                    .publisher("IT전문서")
-                    .date("2022/01/22")
-                    .build(),
-            new Book.Builder()
-                    .id("ISBN1236")
-                    .category("스크래치")
-                    .price(2200)
-                    .author("고광일")
-                    .title("컴퓨팅 사고력을 키우는 블록 코딩")
-                    .publisher("컴퓨터 입문")
-                    .date("2019/06/10")
-                    .build(),
-    };
+    private Scanner sc;
     private Customer customer;
-    private int basketNum = 0;
+    private Admin admin = Admin.getInstance();
+    private List<Book> basket = new ArrayList<>();
+    private BookService bookService = new BookService();
 
-    public void startOrder() {
-        Scanner sc = new Scanner(System.in);
+    public Order(Scanner sc) {
+        this.sc = sc;
+    }
 
+    /**
+     * Scanner를 통해 사용자 이름과 연락처를 입력받습니다.
+     * 입력받은 이름과 연락차를 이용하여 Customer인스턴스를 생성합니다.
+     * 환영인사를 출력합니다.
+     */
+    public void login() {
         System.out.print("당신의 이름을 입력하세요 : ");
         String name = sc.next();
 
@@ -49,45 +32,62 @@ public class Order {
         System.out.println("**************************");
         System.out.println("Welcome to Shopping Mall");
         System.out.println("Welcome to Book Market!\n");
+    }
 
-        while (true) {
-            showMenu();
+    public void adminLogin() {
+        if (!(admin.name == null)) {
+            System.out.println("이미 로그인 되었습니다.");
+            return;
+        }
 
-            int inputNum = sc.nextInt();
+        System.out.println("관리자 정보를 입력하세요.");
 
-            if (inputNum == 8) {
-                System.out.println("프로그램 종료");
-                break;
-            }
+        System.out.print("아이디 : ");
+        String adminId = sc.next();
 
-            switch (inputNum) {
-                case 1 -> showCustomerInfo(customer);
-                case 2 -> showBasketList(customer);
-                case 4 -> {
-                    showBookList();
-                    addBook(sc);
-                }
-                default -> System.out.println("없는 번호입니다.");
-            }
+        if (!admin.getId().equals(adminId)) {
+            System.out.println("등록되지 않은 아이디입니다.");
+            return;
+        }
+
+        System.out.print("비밀번호 : ");
+        String adminPassword = sc.next();
+
+        if (!admin.getPassword().equals(adminPassword)) {
+            System.out.println("비밀번호가 다릅니다.");
+            return;
+        }
+
+        admin.setName(customer.name);
+        admin.setPhoneNumber(customer.phoneNumber);
+
+        System.out.println(admin.getPersonInfo());
+    }
+
+    public void showCustomerInfo() {
+        if (!(admin.name == null)) {
+            System.out.println("\n======== 관리자 모드 ========");
+            System.out.print(customer.getPersonInfo());
+            System.out.println("======== ========= ========");
+        } else {
+            System.out.print(customer.getPersonInfo());
         }
     }
 
-    private void showCustomerInfo(Customer customer) {
-        System.out.print(customer.getCustomerInfo());
-    }
-
-    private void showMenu() {
+    public void showMenu() {
         System.out.println("\n*************************");
-        System.out.println("1. 고객 정보 확인하기\n2. 장바구니 상품 목록 보기\n4. 바구니에 항목 추가히기\n8. 종료");
+        System.out.println("1. 고객 정보 확인하기\n2. 장바구니 상품 목록 보기\n4. 바구니에 항목 추가히기\n8. 종료\n9. 관리자 로그인");
         System.out.println("*************************\n");
         System.out.print("메뉴 번호를 선택해주세요 ");
     }
 
-    private void showBookList() {
-        for (Book book : bookList) System.out.print(book.getBookInfo());
+    public void showBookList() {
+        for (String bookInfo : bookService.getBookInfo()) {
+            System.out.print(bookInfo);
+        }
     }
 
-    private void addBook(Scanner sc) {
+    public void addBasketList() {
         Book pickedBook = null;
 
         while (true) {
@@ -96,7 +96,7 @@ public class Order {
             System.out.print("장바구니에 추가할 도서의 ID를 입력하세요 :");
             String inputID = sc.next();
 
-            for (Book book : bookList) {
+            for (Book book : bookService.getBookList()) {
                 if (book.getId().equals(inputID)) {
                     pickedBook = book;
                 }
@@ -109,12 +109,8 @@ public class Order {
                 char inputAnswer = sc.next().charAt(0);
 
                 if (Character.toUpperCase(inputAnswer) == 'Y') {
-                    Book[] customerBasket = customer.getBasket();
-                    customerBasket[basketNum] = pickedBook;
-
-                    System.out.printf("%s 도서가 장바구니에 추가되었습니다.%n", customerBasket[basketNum].getId());
-
-                    basketNum++;
+                    basket.add(pickedBook);
+                    System.out.printf("%s 도서가 장바구니에 추가되었습니다.%n", pickedBook.getId());
                 }
 
                 if (Character.toUpperCase(inputAnswer) == 'N') {
@@ -124,18 +120,13 @@ public class Order {
         }
     }
 
-    private void showBasketList(Customer customer) {
-        boolean isBasketEmpty = true;
-
+    public void showBasketList() {
         System.out.println("\n장바구니 목록:");
 
-        for (Book book : customer.getBasket()) {
-            if (book == null) continue;
-
+        for (Book book : basket) {
             System.out.print(book.getBookInfo());
-            isBasketEmpty = false;
         }
 
-        if (isBasketEmpty) System.out.println("장바구니가 비어있습니다.");
+        if (basket.isEmpty()) System.out.println("장바구니가 비어있습니다.");
     }
 }
