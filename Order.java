@@ -74,9 +74,34 @@ public class Order {
         }
     }
 
+    public void showBasketList() {
+        System.out.println("\n장바구니 목록:");
+
+        for (Book book : basket) {
+            System.out.print(book.toString());
+        }
+
+        if (basket.isEmpty()) System.out.println("장바구니가 비어있습니다.");
+    }
+
+    public void clearBasket() {
+        if (basket.isEmpty()) System.out.println("장바구니가 비어있습니다.");
+        else {
+            basket.clear();
+            System.out.println("장바구니를 비웠습니다.");
+        }
+    }
+
+    public void reduceQuantity(){
+
+    }
+
     public void showMenu() {
         System.out.println("\n*************************");
-        System.out.println("1. 고객 정보 확인하기\n2. 장바구니 상품 목록 보기\n4. 바구니에 항목 추가히기\n8. 종료\n9. 관리자 로그인");
+        System.out.println("""
+                1. 고객 정보 확인하기\t2. 장바구니 상품 목록 보기
+                3. 장바구니 비우기\t4. 바구니에 항목 추가히기
+                8. 종료\t9. 관리자 로그인""");
         System.out.println("*************************\n");
         System.out.print("메뉴 번호를 선택해주세요 ");
     }
@@ -118,15 +143,5 @@ public class Order {
                 }
             }
         }
-    }
-
-    public void showBasketList() {
-        System.out.println("\n장바구니 목록:");
-
-        for (Book book : basket) {
-            System.out.print(book.toString());
-        }
-
-        if (basket.isEmpty()) System.out.println("장바구니가 비어있습니다.");
     }
 }
