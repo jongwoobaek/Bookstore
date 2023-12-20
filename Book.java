@@ -79,7 +79,8 @@ public class Book {
         return this.id;
     }
 
-    public String getBookInfo() {
+    @Override
+    public String toString() {
         return "%s | %s | %d | %s | %s | %s | %s |%n".formatted(
                 id, category, price, author, title, publisher, date
         );

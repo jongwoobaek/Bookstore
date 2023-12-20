@@ -124,7 +124,7 @@ public class Order {
         System.out.println("\n장바구니 목록:");
 
         for (Book book : basket) {
-            System.out.print(book.getBookInfo());
+            System.out.print(book.toString());
         }
 
         if (basket.isEmpty()) System.out.println("장바구니가 비어있습니다.");

@@ -38,7 +38,7 @@ public class BookService {
         List<String> booksInfo = new ArrayList<String>();
 
         for (Book book : bookList) {
-            booksInfo.add(book.getBookInfo());
+            booksInfo.add(book.toString());
         }
 
         return booksInfo;
