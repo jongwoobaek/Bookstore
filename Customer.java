@@ -1,4 +1,4 @@
-package oop.day3.bookStore;
+package bookStore;
 
 public class Customer extends Person {
     public Customer(String name, String phoneNumber) {

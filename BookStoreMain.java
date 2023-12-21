@@ -1,4 +1,4 @@
-package oop.day3.bookStore;
+package bookStore;
 
 import java.util.Scanner;
 
@@ -25,6 +25,8 @@ public class BookStoreMain {
                     order.addBasketList();
                 }
                 case 5 -> order.reduceQuantity();
+                case 6 -> order.deleteBook();
+                case 7 -> order.showReceipt();
                 case 8 -> {
                     System.out.println("프로그램 종료");
                     return;

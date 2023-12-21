@@ -1,14 +1,13 @@
-package oop.day3.bookStore;
+package bookStore;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Order {
     private Scanner sc;
     private Customer customer;
     private Admin admin = Admin.getInstance();
-    private List<Book> basket = new ArrayList<>();
+    //    private List<Book> basket = new ArrayList<>();
+    private Map<Book, Integer> basket = new HashMap<Book, Integer>();
     private BookService bookService = new BookService();
 
     public Order(Scanner sc) {
@@ -32,6 +31,18 @@ public class Order {
         System.out.println("**************************");
         System.out.println("Welcome to Shopping Mall");
         System.out.println("Welcome to Book Market!\n");
+    }
+
+    public void showMenu() {
+        System.out.println("\n*************************");
+        System.out.println("""
+                1. 고객 정보 확인하기\t2. 장바구니 상품 목록 보기
+                3. 장바구니 비우기\t4. 바구니에 항목 추가히기
+                5. 장바구니의 항목 수량 줄이기\t6. 장바구니의 항목 삭제하기
+                7. 영수증 표시하기\t8. 종료
+                9. 관리자 로그인""");
+        System.out.println("*************************\n");
+        System.out.print("메뉴 번호를 선택해주세요 ");
     }
 
     public void adminLogin() {
@@ -74,36 +85,111 @@ public class Order {
         }
     }
 
+    private void showBookInfoAndQuantity() {
+        basket.forEach((book, quantity) -> {
+            System.out.printf("수량 %d권:%n" +
+                            "%s",
+                    quantity, book.toString());
+        });
+    }
+
+    private boolean checkAndPrintEmptyBasket() {
+        if (basket.isEmpty()) {
+            System.out.println("장바구니가 비어있습니다.");
+            return true;
+        }
+        return false;
+    }
+
     public void showBasketList() {
+        if (checkAndPrintEmptyBasket()) return;
+
         System.out.println("\n장바구니 목록:");
 
-        for (Book book : basket) {
-            System.out.print(book.toString());
-        }
-
-        if (basket.isEmpty()) System.out.println("장바구니가 비어있습니다.");
+        showBookInfoAndQuantity();
     }
 
     public void clearBasket() {
-        if (basket.isEmpty()) System.out.println("장바구니가 비어있습니다.");
-        else {
-            basket.clear();
-            System.out.println("장바구니를 비웠습니다.");
+        if (checkAndPrintEmptyBasket()) return;
+
+        basket.clear();
+        System.out.println("장바구니를 비웠습니다.");
+
+    }
+
+    public void reduceQuantity() {
+        if (checkAndPrintEmptyBasket()) return;
+
+        showBookInfoAndQuantity();
+
+        System.out.print("수량을 줄일 항목의 아이디를 입력하세요: ");
+        String inputID = sc.next();
+
+        boolean isVerifiedID = false;
+
+        for (Book book : basket.keySet()) {
+            if (book.getId().equals(inputID)) {
+                basket.put(book, basket.get(book) - 1);
+                isVerifiedID = true;
+
+                if (basket.get(book) == 0) basket.remove(book);
+            }
         }
+
+        if (!isVerifiedID) {
+            System.out.println("\n일치하는 항목이 없습니다.");
+            return;
+        }
+
+        showBasketList();
     }
 
-    public void reduceQuantity(){
+    public void deleteBook() {
+        if (checkAndPrintEmptyBasket()) return;
 
+        showBookInfoAndQuantity();
+
+        System.out.print("삭제할 항목의 아이디를 입력하세요. ");
+        String inputID = sc.next();
+
+        boolean isVerifiedID = false;
+
+        for (Book book : basket.keySet()) {
+            if (book.getId().equals(inputID)) {
+                basket.remove(book);
+
+                isVerifiedID = true;
+            }
+        }
+
+        if (!isVerifiedID) {
+            System.out.println("\n일치하는 항목이 없습니다.");
+            return;
+        }
+
+        System.out.println("해당 항목이 삭제되었습니다.");
+
+        showBasketList();
     }
 
-    public void showMenu() {
-        System.out.println("\n*************************");
-        System.out.println("""
-                1. 고객 정보 확인하기\t2. 장바구니 상품 목록 보기
-                3. 장바구니 비우기\t4. 바구니에 항목 추가히기
-                8. 종료\t9. 관리자 로그인""");
-        System.out.println("*************************\n");
-        System.out.print("메뉴 번호를 선택해주세요 ");
+    public void showReceipt(){
+        if (checkAndPrintEmptyBasket()) return;
+
+        showBasketList();
+
+        int totalQuantity = 0;
+        int totalPrice = 0;
+
+        for (int quantity : basket.values()) {
+            totalQuantity += quantity;
+        }
+
+        for (Book book : basket.keySet()) {
+            totalPrice += book.getPrice() * basket.get(book);
+        }
+
+        System.out.println("=============== 총합 ===============");
+        System.out.printf("총 %d권 | 금액 %d원%n", totalQuantity, totalPrice);
     }
 
     public void showBookList() {
@@ -129,19 +215,24 @@ public class Order {
 
             if (pickedBook == null) {
                 System.out.println("유효하지 않은 아이디입니다.\n");
-            } else {
-                System.out.println("장바구니에 추가하겠습니까? Y | N");
-                char inputAnswer = sc.next().charAt(0);
-
-                if (Character.toUpperCase(inputAnswer) == 'Y') {
-                    basket.add(pickedBook);
-                    System.out.printf("%s 도서가 장바구니에 추가되었습니다.%n", pickedBook.getId());
-                }
-
-                if (Character.toUpperCase(inputAnswer) == 'N') {
-                    break;
-                }
+                continue;
             }
+
+            System.out.println("장바구니에 추가하겠습니까? Y | N");
+            char inputAnswer = sc.next().charAt(0);
+
+            if (Character.toUpperCase(inputAnswer) == 'Y' && basket.containsKey(pickedBook)) {
+                basket.put(pickedBook, basket.get(pickedBook) + 1);
+            } else {
+                basket.put(pickedBook, 1);
+            }
+
+            if (Character.toUpperCase(inputAnswer) == 'N') {
+                System.out.println("항목 추가를 취소합니다.");
+                break;
+            }
+
+            System.out.printf("%s 도서가 장바구니에 추가되었습니다.%n", pickedBook.getId());
         }
     }
 }

@@ -1,4 +1,4 @@
-package oop.day3.bookStore;
+package bookStore;
 
 public class Book {
     private String id;
@@ -77,6 +77,10 @@ public class Book {
 
     public String getId() {
         return this.id;
+    }
+
+    public int getPrice() {
+        return this.price;
     }
 
     @Override

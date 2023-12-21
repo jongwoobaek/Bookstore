@@ -1,4 +1,4 @@
-package oop.day3.bookStore;
+package bookStore;
 
 public abstract class Person {
     protected String name;

@@ -1,4 +1,4 @@
-package oop.day3.bookStore;
+package bookStore;
 
 public class Admin extends Person {
     private String id = "Admin";

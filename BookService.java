@@ -1,4 +1,4 @@
-package oop.day3.bookStore;
+package bookStore;
 
 import java.util.ArrayList;
 import java.util.List;
