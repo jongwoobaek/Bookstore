@@ -1,5 +1,6 @@
 package bookStore;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookStoreMain {
@@ -14,7 +15,18 @@ public class BookStoreMain {
         while (true) {
             order.showMenu();
 
-            int inputNum = sc.nextInt();
+            int inputNum = 0;
+
+            try {
+                inputNum = sc.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("You can only enter numbers!");
+                sc.nextLine();
+
+                continue;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 
             switch (inputNum) {
                 case 1 -> order.showCustomerInfo();
