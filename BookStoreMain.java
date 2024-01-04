@@ -27,10 +27,7 @@ public class BookStoreMain {
                 case 5 -> order.reduceQuantity();
                 case 6 -> order.deleteBook();
                 case 7 -> order.showReceipt();
-                case 8 -> {
-                    System.out.println("프로그램 종료");
-                    return;
-                }
+                case 8 -> order.exit();
                 case 9 -> order.adminLogin();
                 default -> System.out.println("없는 번호입니다.");
             }

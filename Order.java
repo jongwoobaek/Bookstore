@@ -219,6 +219,11 @@ public class Order {
         System.out.println(admin.getPersonInfo());
     }
 
+    public void exit() {
+        System.out.println("프로그램 종료");
+        System.exit(0);
+    }
+
     private void showBookInfoAndQuantity() {
         basket.forEach((book, quantity) -> {
             System.out.printf("수량 %d권:%n" +
