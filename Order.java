@@ -155,14 +155,16 @@ public class Order {
         String inputID = sc.next();
 
         boolean isVerifiedID = false;
+        Book targetBook = null;
 
         for (Book book : basket.keySet()) {
             if (book.getId().equals(inputID)) {
-                basket.remove(book);
-
+                targetBook = book;
                 isVerifiedID = true;
             }
         }
+
+        basket.remove(targetBook);
 
         if (!isVerifiedID) {
             System.out.println("\nThere is no matching item.");
