@@ -45,36 +45,6 @@ public class Order {
         System.out.print("메뉴 번호를 선택해주세요 ");
     }
 
-    public void adminLogin() {
-        if (!(admin.name == null)) {
-            System.out.println("이미 로그인 되었습니다.");
-            return;
-        }
-
-        System.out.println("관리자 정보를 입력하세요.");
-
-        System.out.print("아이디 : ");
-        String adminId = sc.next();
-
-        if (!admin.getId().equals(adminId)) {
-            System.out.println("등록되지 않은 아이디입니다.");
-            return;
-        }
-
-        System.out.print("비밀번호 : ");
-        String adminPassword = sc.next();
-
-        if (!admin.getPassword().equals(adminPassword)) {
-            System.out.println("비밀번호가 다릅니다.");
-            return;
-        }
-
-        admin.setName(customer.name);
-        admin.setPhoneNumber(customer.phoneNumber);
-
-        System.out.println(admin.getPersonInfo());
-    }
-
     public void showCustomerInfo() {
         if (!(admin.name == null)) {
             System.out.println("\n======== 관리자 모드 ========");
@@ -83,22 +53,6 @@ public class Order {
         } else {
             System.out.print(customer.getPersonInfo());
         }
-    }
-
-    private void showBookInfoAndQuantity() {
-        basket.forEach((book, quantity) -> {
-            System.out.printf("수량 %d권:%n" +
-                            "%s",
-                    quantity, book.toString());
-        });
-    }
-
-    private boolean checkAndPrintEmptyBasket() {
-        if (basket.isEmpty()) {
-            System.out.println("장바구니가 비어있습니다.");
-            return true;
-        }
-        return false;
     }
 
     public void showBasketList() {
@@ -114,7 +68,50 @@ public class Order {
 
         basket.clear();
         System.out.println("장바구니를 비웠습니다.");
+    }
 
+    public void showBookList() {
+        for (String bookInfo : bookService.getBookInfo()) {
+            System.out.print(bookInfo);
+        }
+    }
+
+    public void addBasketList() {
+        Book pickedBook = null;
+
+        while (true) {
+            if (pickedBook != null) break;
+
+            System.out.print("장바구니에 추가할 도서의 ID를 입력하세요 :");
+            String inputID = sc.next();
+
+            for (Book book : bookService.getBookList()) {
+                if (book.getId().equals(inputID)) {
+                    pickedBook = book;
+                }
+            }
+
+            if (pickedBook == null) {
+                System.out.println("유효하지 않은 아이디입니다.\n");
+                continue;
+            }
+
+            System.out.println("장바구니에 추가하겠습니까? Y | N");
+            char inputAnswer = sc.next().charAt(0);
+
+            if (Character.toUpperCase(inputAnswer) == 'Y' && basket.containsKey(pickedBook)) {
+                basket.put(pickedBook, basket.get(pickedBook) + 1);
+            } else {
+                basket.put(pickedBook, 1);
+            }
+
+            if (Character.toUpperCase(inputAnswer) == 'N') {
+                System.out.println("항목 추가를 취소합니다.");
+                break;
+            }
+
+            System.out.printf("%s 도서가 장바구니에 추가되었습니다.%n", pickedBook.getId());
+        }
     }
 
     public void reduceQuantity() {
@@ -192,47 +189,49 @@ public class Order {
         System.out.printf("총 %d권 | 금액 %d원%n", totalQuantity, totalPrice);
     }
 
-    public void showBookList() {
-        for (String bookInfo : bookService.getBookInfo()) {
-            System.out.print(bookInfo);
+    public void adminLogin() {
+        if (!(admin.name == null)) {
+            System.out.println("이미 로그인 되었습니다.");
+            return;
         }
+
+        System.out.println("관리자 정보를 입력하세요.");
+
+        System.out.print("아이디 : ");
+        String adminId = sc.next();
+
+        if (!admin.getId().equals(adminId)) {
+            System.out.println("등록되지 않은 아이디입니다.");
+            return;
+        }
+
+        System.out.print("비밀번호 : ");
+        String adminPassword = sc.next();
+
+        if (!admin.getPassword().equals(adminPassword)) {
+            System.out.println("비밀번호가 다릅니다.");
+            return;
+        }
+
+        admin.setName(customer.name);
+        admin.setPhoneNumber(customer.phoneNumber);
+
+        System.out.println(admin.getPersonInfo());
     }
 
-    public void addBasketList() {
-        Book pickedBook = null;
+    private void showBookInfoAndQuantity() {
+        basket.forEach((book, quantity) -> {
+            System.out.printf("수량 %d권:%n" +
+                            "%s",
+                    quantity, book.toString());
+        });
+    }
 
-        while (true) {
-            if (pickedBook != null) break;
-
-            System.out.print("장바구니에 추가할 도서의 ID를 입력하세요 :");
-            String inputID = sc.next();
-
-            for (Book book : bookService.getBookList()) {
-                if (book.getId().equals(inputID)) {
-                    pickedBook = book;
-                }
-            }
-
-            if (pickedBook == null) {
-                System.out.println("유효하지 않은 아이디입니다.\n");
-                continue;
-            }
-
-            System.out.println("장바구니에 추가하겠습니까? Y | N");
-            char inputAnswer = sc.next().charAt(0);
-
-            if (Character.toUpperCase(inputAnswer) == 'Y' && basket.containsKey(pickedBook)) {
-                basket.put(pickedBook, basket.get(pickedBook) + 1);
-            } else {
-                basket.put(pickedBook, 1);
-            }
-
-            if (Character.toUpperCase(inputAnswer) == 'N') {
-                System.out.println("항목 추가를 취소합니다.");
-                break;
-            }
-
-            System.out.printf("%s 도서가 장바구니에 추가되었습니다.%n", pickedBook.getId());
+    private boolean checkAndPrintEmptyBasket() {
+        if (basket.isEmpty()) {
+            System.out.println("장바구니가 비어있습니다.");
+            return true;
         }
+        return false;
     }
 }
