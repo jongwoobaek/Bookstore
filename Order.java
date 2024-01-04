@@ -105,10 +105,9 @@ public class Order {
             System.out.println("Would you like to add it to the basket? Y | N");
             char inputAnswer = sc.next().charAt(0);
 
-            if (Character.toUpperCase(inputAnswer) == 'Y' && basket.containsKey(pickedBook)) {
-                basket.put(pickedBook, basket.get(pickedBook) + 1);
-            } else {
-                basket.put(pickedBook, 1);
+            if (Character.toUpperCase(inputAnswer) == 'Y'){
+                if (basket.containsKey(pickedBook)) basket.put(pickedBook, basket.get(pickedBook) + 1);
+                else  basket.put(pickedBook, 1);
             }
 
             if (Character.toUpperCase(inputAnswer) == 'N') {
