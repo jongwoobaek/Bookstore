@@ -20,10 +20,10 @@ public class Order {
      * 환영인사를 출력합니다.
      */
     public void login() {
-        System.out.print("당신의 이름을 입력하세요 : ");
+        System.out.print("Please enter your name : ");
         String name = sc.next();
 
-        System.out.print("연락처를 입력하세요 : ");
+        System.out.print("Please enter your contact information : ");
         String phoneNumber = sc.next();
 
         customer = new Customer(name, phoneNumber);
@@ -34,20 +34,26 @@ public class Order {
     }
 
     public void showMenu() {
-        System.out.println("\n*************************");
-        System.out.println("""
-                1. 고객 정보 확인하기\t2. 장바구니 상품 목록 보기
-                3. 장바구니 비우기\t4. 바구니에 항목 추가히기
-                5. 장바구니의 항목 수량 줄이기\t6. 장바구니의 항목 삭제하기
-                7. 영수증 표시하기\t8. 종료
-                9. 관리자 로그인""");
-        System.out.println("*************************\n");
-        System.out.print("메뉴 번호를 선택해주세요 ");
+        System.out.println("\n******************************************************************************");
+        System.out.printf("""
+                %-45s%-45s
+                %-45s%-45s
+                %-45s%-45s
+                %-45s%-45s
+                %-45s
+                """,
+                "1. Check customer information", "2. View basket contents.",
+                "3. Empty the basket", "4. Add item to the basket",
+                "5. Reduce quantity of items in the basket", "6. Delete items from the basket",
+                "7. Show the receipt", "8. Exit the program",
+                "9. Admin login");
+        System.out.println("******************************************************************************\n");
+        System.out.print("Please select a menu number. ");
     }
 
     public void showCustomerInfo() {
         if (!(admin.name == null)) {
-            System.out.println("\n======== 관리자 모드 ========");
+            System.out.println("\n======== Administrator mode ========");
             System.out.print(customer.getPersonInfo());
             System.out.println("======== ========= ========");
         } else {
@@ -58,7 +64,7 @@ public class Order {
     public void showBasketList() {
         if (checkAndPrintEmptyBasket()) return;
 
-        System.out.println("\n장바구니 목록:");
+        System.out.println("\nBasket list:");
 
         showBookInfoAndQuantity();
     }
@@ -67,7 +73,7 @@ public class Order {
         if (checkAndPrintEmptyBasket()) return;
 
         basket.clear();
-        System.out.println("장바구니를 비웠습니다.");
+        System.out.println("Bsket has been emptied.");
     }
 
     public void showBookList() {
@@ -82,7 +88,7 @@ public class Order {
         while (true) {
             if (pickedBook != null) break;
 
-            System.out.print("장바구니에 추가할 도서의 ID를 입력하세요 :");
+            System.out.print("Please enter the ID of the book to add to the basket :");
             String inputID = sc.next();
 
             for (Book book : bookService.getBookList()) {
@@ -92,11 +98,11 @@ public class Order {
             }
 
             if (pickedBook == null) {
-                System.out.println("유효하지 않은 아이디입니다.\n");
+                System.out.println("The entered ID is invalid!\n");
                 continue;
             }
 
-            System.out.println("장바구니에 추가하겠습니까? Y | N");
+            System.out.println("Would you like to add it to the basket? Y | N");
             char inputAnswer = sc.next().charAt(0);
 
             if (Character.toUpperCase(inputAnswer) == 'Y' && basket.containsKey(pickedBook)) {
@@ -106,11 +112,11 @@ public class Order {
             }
 
             if (Character.toUpperCase(inputAnswer) == 'N') {
-                System.out.println("항목 추가를 취소합니다.");
+                System.out.println("The item addition has been canceled");
                 break;
             }
 
-            System.out.printf("%s 도서가 장바구니에 추가되었습니다.%n", pickedBook.getId());
+            System.out.printf("%s The book has been added to the basket%n", pickedBook.getId());
         }
     }
 
@@ -119,7 +125,7 @@ public class Order {
 
         showBookInfoAndQuantity();
 
-        System.out.print("수량을 줄일 항목의 아이디를 입력하세요: ");
+        System.out.print("Please enter the ID of the item to decrease its quantity: ");
         String inputID = sc.next();
 
         boolean isVerifiedID = false;
@@ -134,7 +140,7 @@ public class Order {
         }
 
         if (!isVerifiedID) {
-            System.out.println("\n일치하는 항목이 없습니다.");
+            System.out.println("\nThere is no matching item.");
             return;
         }
 
@@ -146,7 +152,7 @@ public class Order {
 
         showBookInfoAndQuantity();
 
-        System.out.print("삭제할 항목의 아이디를 입력하세요. ");
+        System.out.print("Please enter the ID of the item to delete. ");
         String inputID = sc.next();
 
         boolean isVerifiedID = false;
@@ -160,11 +166,11 @@ public class Order {
         }
 
         if (!isVerifiedID) {
-            System.out.println("\n일치하는 항목이 없습니다.");
+            System.out.println("\nThere is no matching item.");
             return;
         }
 
-        System.out.println("해당 항목이 삭제되었습니다.");
+        System.out.println("The item has been deleted.");
 
         showBasketList();
     }
@@ -185,31 +191,31 @@ public class Order {
             totalPrice += book.getPrice() * basket.get(book);
         }
 
-        System.out.println("=============== 총합 ===============");
-        System.out.printf("총 %d권 | 금액 %d원%n", totalQuantity, totalPrice);
+        System.out.println("=============== Total amount ===============");
+        System.out.printf("Total %d books | Amount %d won%n", totalQuantity, totalPrice);
     }
 
     public void adminLogin() {
         if (!(admin.name == null)) {
-            System.out.println("이미 로그인 되었습니다.");
+            System.out.println("You are already logged in");
             return;
         }
 
-        System.out.println("관리자 정보를 입력하세요.");
+        System.out.println("Please enter the administrator information.");
 
-        System.out.print("아이디 : ");
+        System.out.print("ID : ");
         String adminId = sc.next();
 
         if (!admin.getId().equals(adminId)) {
-            System.out.println("등록되지 않은 아이디입니다.");
+            System.out.println("The entered ID is not registered.");
             return;
         }
 
-        System.out.print("비밀번호 : ");
+        System.out.print("PW : ");
         String adminPassword = sc.next();
 
         if (!admin.getPassword().equals(adminPassword)) {
-            System.out.println("비밀번호가 다릅니다.");
+            System.out.println("The password is incorrect..");
             return;
         }
 
@@ -220,21 +226,21 @@ public class Order {
     }
 
     public void exit() {
-        System.out.println("프로그램 종료");
+        System.out.println("Exit the program.");
         System.exit(0);
     }
 
     private void showBookInfoAndQuantity() {
         basket.forEach((book, quantity) -> {
-            System.out.printf("수량 %d권:%n" +
-                            "%s",
+            System.out.printf("Quantity: %d books:%n" +
+                            "%s%n",
                     quantity, book.toString());
         });
     }
 
     private boolean checkAndPrintEmptyBasket() {
         if (basket.isEmpty()) {
-            System.out.println("장바구니가 비어있습니다.");
+            System.out.println("The basket is empty.");
             return true;
         }
         return false;

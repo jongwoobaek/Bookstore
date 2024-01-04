@@ -29,7 +29,7 @@ public class BookStoreMain {
                 case 7 -> order.showReceipt();
                 case 8 -> order.exit();
                 case 9 -> order.adminLogin();
-                default -> System.out.println("없는 번호입니다.");
+                default -> System.out.println("The number does not exist.");
             }
         }
 

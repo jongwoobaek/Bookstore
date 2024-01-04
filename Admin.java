@@ -17,7 +17,12 @@ public class Admin extends Person {
 
     @Override
     public String getPersonInfo() {
-        return "이름 : %s%n연락처 : %s%n아이디 : %s%n비밀번호 : %s%n"
+        return """
+                Name : %s
+                Contact information : %s
+                ID : %s
+                PW : %s%n
+                """
                 .formatted(this.name, this.phoneNumber, this.id, this.password);
 
     }

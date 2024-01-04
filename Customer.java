@@ -7,6 +7,7 @@ public class Customer extends Person {
 
     @Override
     public String getPersonInfo() {
-        return "고객 이름 : %s%n고객 전화번호 : %s%n".formatted(this.name, this.phoneNumber);
+        return "Customer name : %s%nCustomer contact information : %s%n"
+                .formatted(this.name, this.phoneNumber);
     }
 }
