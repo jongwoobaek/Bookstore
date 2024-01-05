@@ -1,6 +1,5 @@
 package bookStore;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookStoreMain {
@@ -15,30 +14,25 @@ public class BookStoreMain {
         while (true) {
             order.showMenu();
 
-            int inputNum = 0;
-
-            try {
-                inputNum = sc.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("You can only enter numbers!");
-                sc.nextLine();
-
-                continue;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+            String inputNum = sc.next();
 
             switch (inputNum) {
-                case 1 -> order.showCustomerInfo();
-                case 2 -> order.showBasketList();
-                case 3 -> order.clearBasket();
-                case 4 -> order.addBasketList();
-                case 5 -> order.reduceQuantity();
-                case 6 -> order.deleteBook();
-                case 7 -> order.showReceipt();
-                case 8 -> order.exit();
-                case 9 -> order.adminLogin();
-                default -> System.out.println("The number does not exist.");
+                case "1" -> order.showCustomerInfo();
+                case "2" -> order.showBasketList();
+                case "3" -> order.clearBasket();
+                case "4" -> order.addBasketList();
+                case "5" -> order.reduceQuantity();
+                case "6" -> order.deleteBook();
+                case "7" -> order.showReceipt();
+                case "8" -> order.exit();
+                case "9" -> order.adminLogin();
+                default -> {
+                    if (inputNum.matches("[+-]?\\d*(\\.\\d+)?")) {
+                        System.out.println("The number does not exist.");
+                    } else {
+                        System.out.println("You can only enter numbers!");
+                    }
+                }
             }
         }
 
