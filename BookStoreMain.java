@@ -32,10 +32,7 @@ public class BookStoreMain {
                 case 1 -> order.showCustomerInfo();
                 case 2 -> order.showBasketList();
                 case 3 -> order.clearBasket();
-                case 4 -> {
-                    order.showBookList();
-                    order.addBasketList();
-                }
+                case 4 -> order.addBasketList();
                 case 5 -> order.reduceQuantity();
                 case 6 -> order.deleteBook();
                 case 7 -> order.showReceipt();

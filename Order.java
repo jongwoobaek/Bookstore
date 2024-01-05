@@ -76,13 +76,11 @@ public class Order {
         System.out.println("Bsket has been emptied.");
     }
 
-    public void showBookList() {
+    public void addBasketList() {
         for (String bookInfo : bookService.getBookInfo()) {
             System.out.print(bookInfo);
         }
-    }
 
-    public void addBasketList() {
         Book pickedBook = null;
 
         while (true) {
