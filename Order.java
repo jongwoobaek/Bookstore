@@ -23,7 +23,7 @@ public class Order {
         System.out.print("Please enter your name : ");
         String name = sc.next();
 
-        System.out.print("Please enter your contact information : ");
+        System.out.print("Please enter your phone number : ");
         String phoneNumber = sc.next();
 
         customer = new Customer(name, phoneNumber);
