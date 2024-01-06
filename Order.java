@@ -23,6 +23,11 @@ public class Order {
         System.out.print("Please enter your name : ");
         String name = sc.next();
 
+        if (!name.matches("^[a-zA-Z가-힣]*$")) {
+            System.out.println("You can only enter letters!\n");
+            login();
+        }
+
         System.out.print("Please enter your phone number : ");
         String phoneNumber = sc.next();
 
