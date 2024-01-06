@@ -20,31 +20,44 @@ public class Order {
      * 환영인사를 출력합니다.
      */
     public void login() {
-        System.out.print("Please enter your name : ");
-        String name = sc.next();
+        String name;
 
-        if (!name.matches("^[a-zA-Z가-힣]*$")) {
-            System.out.println("You can only enter letters!\n");
-            login();
+        while (true) {
+            System.out.print("Please enter your name : ");
+            String tempName = sc.next();
+
+            if (!tempName.matches("^[a-zA-Z가-힣]*$")) {
+                System.out.println("You can only enter letters!\n");
+
+                continue;
+            }
+
+            name = tempName;
+            break;
         }
 
-        System.out.print("Please enter your phone number : ");
-        String phoneNumber = sc.next();
+        String phoneNumber;
 
-        if (!phoneNumber.matches("^\\d{3}-\\d{3,4}-\\d{4}$")) {
-            System.out.println("""
+        while (true) {
+            System.out.print("Please enter your phone number : ");
+            String tempPhoneNum = sc.next();
+
+            if (!tempPhoneNum.matches("^\\d{3}-\\d{3,4}-\\d{4}$")) {
+                System.out.println("""
                     You need to enter as follows:
                     010-0000-0000
                     """);
+            } else {
+                phoneNumber = tempPhoneNum;
+                customer = new Customer(name, phoneNumber);
 
-            login();
+                System.out.println("**************************");
+                System.out.println("Welcome to Shopping Mall");
+                System.out.println("Welcome to Book Market!\n");
+
+                break;
+            }
         }
-
-        customer = new Customer(name, phoneNumber);
-
-        System.out.println("**************************");
-        System.out.println("Welcome to Shopping Mall");
-        System.out.println("Welcome to Book Market!\n");
     }
 
     public void showMenu() {
