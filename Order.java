@@ -31,6 +31,15 @@ public class Order {
         System.out.print("Please enter your phone number : ");
         String phoneNumber = sc.next();
 
+        if (!phoneNumber.matches("^\\d{3}-\\d{3,4}-\\d{4}$")) {
+            System.out.println("""
+                    You need to enter as follows:
+                    010-0000-0000
+                    """);
+
+            login();
+        }
+
         customer = new Customer(name, phoneNumber);
 
         System.out.println("**************************");
@@ -41,12 +50,12 @@ public class Order {
     public void showMenu() {
         System.out.println("\n******************************************************************************");
         System.out.printf("""
-                %-45s%-45s
-                %-45s%-45s
-                %-45s%-45s
-                %-45s%-45s
-                %-45s
-                """,
+                        %-45s%-45s
+                        %-45s%-45s
+                        %-45s%-45s
+                        %-45s%-45s
+                        %-45s
+                        """,
                 "1. Check customer information", "2. View basket contents.",
                 "3. Empty the basket", "4. Add item to the basket",
                 "5. Reduce quantity of items in the basket", "6. Delete items from the basket",
@@ -108,9 +117,9 @@ public class Order {
             System.out.println("Would you like to add it to the basket? Y | N");
             char inputAnswer = Character.toUpperCase(sc.next().charAt(0));
 
-            if (inputAnswer == 'Y'){
+            if (inputAnswer == 'Y') {
                 if (basket.containsKey(pickedBook)) basket.put(pickedBook, basket.get(pickedBook) + 1);
-                else  basket.put(pickedBook, 1);
+                else basket.put(pickedBook, 1);
             } else if (inputAnswer == 'N') {
                 System.out.println("The item addition has been canceled");
                 break;
@@ -180,7 +189,7 @@ public class Order {
         showBasketList();
     }
 
-    public void showReceipt(){
+    public void showReceipt() {
         if (checkAndPrintEmptyBasket()) return;
 
         showBasketList();
