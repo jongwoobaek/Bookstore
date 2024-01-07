@@ -20,6 +20,7 @@ public class Order {
      * 환영인사를 출력합니다.
      */
     public void login() {
+        System.out.println("\n[Login]");
         String name;
 
         while (true) {
@@ -51,7 +52,7 @@ public class Order {
                 phoneNumber = tempPhoneNum;
                 customer = new Customer(name, phoneNumber);
 
-                System.out.println("**************************");
+                System.out.println("\n**************************");
                 System.out.println("Welcome to Shopping Mall");
                 System.out.println("Welcome to Book Market!\n");
 
