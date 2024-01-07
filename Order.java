@@ -85,6 +85,7 @@ public class Order {
             System.out.print(customer.getPersonInfo());
             System.out.println("============ =========== ============");
         } else {
+            System.out.println("\n[Customer information]");
             System.out.print(customer.getPersonInfo());
         }
     }
