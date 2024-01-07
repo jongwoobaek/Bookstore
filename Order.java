@@ -82,7 +82,7 @@ public class Order {
         if (!(admin.name == null)) {
             System.out.println("\n======== Administrator mode ========");
             System.out.print(customer.getPersonInfo());
-            System.out.println("======== ========= ========");
+            System.out.println("============ =========== ============");
         } else {
             System.out.print(customer.getPersonInfo());
         }
