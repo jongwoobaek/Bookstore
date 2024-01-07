@@ -70,7 +70,7 @@ public class Order {
                         %-45s%-45s
                         %-45s
                         """,
-                "1. Check customer information", "2. View basket contents.",
+                "1. Check customer information", "2. View basket contents",
                 "3. Empty the basket", "4. Add item to the basket",
                 "5. Reduce quantity of items in the basket", "6. Delete items from the basket",
                 "7. Show the receipt", "8. Exit the program",
@@ -93,7 +93,7 @@ public class Order {
     public void showBasketList() {
         if (checkAndPrintEmptyBasket()) return;
 
-        System.out.println("\nBasket list:");
+        System.out.println("\n[Basket list]");
 
         showBookInfoAndQuantity();
     }
