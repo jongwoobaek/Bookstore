@@ -1,5 +1,7 @@
 package bookstore;
 
+import bookstore.bookstoreException.BookstoreExceptionList;
+
 import java.util.*;
 
 public class Order {
@@ -9,6 +11,8 @@ public class Order {
     //    private List<Book> basket = new ArrayList<>();
     private Map<Book, Integer> basket = new HashMap<Book, Integer>();
     private BookService bookService = new BookService();
+
+    private BookstoreExceptionList error = new BookstoreExceptionList();
 
     public Order(Scanner sc) {
         this.sc = sc;
