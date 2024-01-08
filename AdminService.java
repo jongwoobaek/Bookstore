@@ -1,8 +1,8 @@
 package bookstore;
 
 public class AdminService extends Person {
-    private AdminsInfo[] adminsInfos = AdminsInfo.values();
-    private AdminsInfo admin;
+    private Admin[] adminsInfos = Admin.values();
+    private Admin admin;
     private String id;
     private String pw;
 
@@ -30,7 +30,7 @@ public class AdminService extends Person {
     }
 
     public boolean checkAdminId(String inputId) {
-        for (AdminsInfo admin : adminsInfos) {
+        for (Admin admin : adminsInfos) {
             if (admin.getId().equals(inputId)) {
                 this.admin = admin;
                 return true;
