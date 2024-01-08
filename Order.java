@@ -1,6 +1,8 @@
 package bookstore;
 
+import bookstore.bookstoreException.BookstoreException;
 import bookstore.bookstoreException.BookstoreExceptionList;
+import bookstore.bookstoreException.ErrorCode;
 
 import java.util.*;
 
@@ -12,7 +14,7 @@ public class Order {
     private Map<Book, Integer> basket = new HashMap<Book, Integer>();
     private BookService bookService = new BookService();
 
-    private BookstoreExceptionList error = new BookstoreExceptionList();
+    BookstoreExceptionList error = new BookstoreExceptionList();
 
     public Order(Scanner sc) {
         this.sc = sc;
@@ -44,24 +46,26 @@ public class Order {
         String phoneNumber;
 
         while (true) {
-            System.out.print("Please enter your phone number : ");
-            String tempPhoneNum = sc.next();
+            System.out.print("Please enter your phone number(010-0000-0000) : ");
+            String inputPhoneNum = sc.next();
 
-            if (!tempPhoneNum.matches("^\\d{3}-\\d{3,4}-\\d{4}$")) {
-                System.out.println("""
-                    You need to enter as follows:
-                    010-0000-0000
-                    """);
-            } else {
-                phoneNumber = tempPhoneNum;
-                customer = new Customer(name, phoneNumber);
+            try {
+                if (error.isValidPhoneNumber(inputPhoneNum)){
+                    throw new BookstoreException(ErrorCode.INVALID_INPUT_PHONENUMBER);
+                } else {
+                    phoneNumber = inputPhoneNum;
+                    customer = new Customer(name, phoneNumber);
 
-                System.out.println("\n**************************");
-                System.out.println("Welcome to Shopping Mall");
-                System.out.println("Welcome to Book Market!\n");
+                    System.out.println("\n**************************");
+                    System.out.println("Welcome to Shopping Mall");
+                    System.out.println("Welcome to Book Market!\n");
 
-                break;
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println();
             }
+
         }
     }
 
