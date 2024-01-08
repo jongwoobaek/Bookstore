@@ -2,7 +2,7 @@ package bookstore;
 
 import java.util.Scanner;
 
-public class BookStoreMain {
+public class BookstoreMain {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
