@@ -1,19 +1,19 @@
 package bookStore;
 
-public class Admin extends Person {
+public class AdminService extends Person {
     private AdminsInfo[] adminsInfos = AdminsInfo.values();
     private AdminsInfo admin;
     private String id;
     private String pw;
 
-    private Admin() {
+    private AdminService() {
     }
 
     private static class AdminInstanceHolder {
-        private static final Admin INSTANCE = new Admin();
+        private static final AdminService INSTANCE = new AdminService();
     }
 
-    public static Admin getInstance() {
+    public static AdminService getInstance() {
        return AdminInstanceHolder.INSTANCE;
     }
 
