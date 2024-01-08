@@ -5,7 +5,7 @@ import java.util.*;
 public class Order {
     private Scanner sc;
     private Customer customer;
-    private Admin admin = Admin.getInstance();
+    private AdminService admin = AdminService.getInstance();
     //    private List<Book> basket = new ArrayList<>();
     private Map<Book, Integer> basket = new HashMap<Book, Integer>();
     private BookService bookService = new BookService();
@@ -235,7 +235,7 @@ public class Order {
         System.out.print("ID : ");
         String adminId = sc.next();
 
-        if (!admin.getId().equals(adminId)) {
+        if (!admin.checkAdminId(adminId)) {
             System.out.println("The entered ID is not registered.");
             return;
         }
@@ -243,13 +243,15 @@ public class Order {
         System.out.print("PW : ");
         String adminPassword = sc.next();
 
-        if (!admin.getPassword().equals(adminPassword)) {
+        if (!admin.checkAdminPw(adminPassword)) {
             System.out.println("The password is incorrect..");
             return;
         }
 
         admin.setName(customer.name);
         admin.setPhoneNumber(customer.phoneNumber);
+        admin.setId(adminId);
+        admin.setPw(adminPassword);
 
         System.out.println(admin.getPersonInfo());
     }
