@@ -1,8 +1,17 @@
 package bookStore;
 
 public class Admin extends Person {
-    private String id = "Admin";
-    private String password = "Admin1234";
+    private enum Admins {
+        ADMIN1("Admin", "Admin1234");
+
+        private String id;
+        private String pw;
+
+        Admins(String id, String pw) {
+            this.id = id;
+            this.pw = pw;
+        }
+    }
 
     private Admin() {
     }
@@ -23,16 +32,16 @@ public class Admin extends Person {
                 ID : %s
                 PW : %s%n
                 """
-                .formatted(this.name, this.phoneNumber, this.id, this.password);
+                .formatted(this.name, this.phoneNumber, Admins.ADMIN1.id, Admins.ADMIN1.pw);
 
     }
 
     public String getId() {
-        return this.id;
+        return Admins.ADMIN1.id;
     }
 
     public String getPassword() {
-        return this.password;
+        return Admins.ADMIN1.pw;
     }
 
     public void setName(String name) {
