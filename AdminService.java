@@ -1,4 +1,4 @@
-package bookStore;
+package bookstore;
 
 public class AdminService extends Person {
     private AdminsInfo[] adminsInfos = AdminsInfo.values();

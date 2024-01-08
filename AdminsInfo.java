@@ -1,4 +1,4 @@
-package bookStore;
+package bookstore;
 
 public enum AdminsInfo {
     ADMIN1("Admin", "Admin1234"),

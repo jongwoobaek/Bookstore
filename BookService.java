@@ -1,4 +1,4 @@
-package bookStore;
+package bookstore;
 
 import java.util.ArrayList;
 import java.util.List;

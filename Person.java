@@ -1,4 +1,4 @@
-package bookStore;
+package bookstore;
 
 public abstract class Person {
     protected String name;

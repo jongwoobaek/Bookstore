@@ -1,4 +1,4 @@
-package bookStore;
+package bookstore;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package bookStore;
+package bookstore;
 
 public class Book {
     private String id;
