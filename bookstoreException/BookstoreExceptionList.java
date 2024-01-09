@@ -1,5 +1,7 @@
 package bookstore.bookstoreException;
 
+import bookstore.Book;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +13,11 @@ public class BookstoreExceptionList {
 
         if (matcher.matches()) return false;
 
+        return true;
+    }
+
+    public static boolean isExistBookId(Book book) {
+        if (book == null) return false;
         return true;
     }
 }
