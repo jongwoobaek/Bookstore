@@ -114,9 +114,7 @@ public class Order {
     }
 
     public void addBasketList() {
-        for (String bookInfo : bookService.getBookInfo()) {
-            System.out.print(bookInfo);
-        }
+        for (String bookInfo : bookService.getBookInfo()) System.out.print(bookInfo);
 
         Book pickedBook = null;
 
@@ -132,8 +130,12 @@ public class Order {
                 }
             }
 
-            if (pickedBook == null) {
-                System.out.println("The entered ID is invalid!\n");
+            try {
+                if (!error.isExistBookId(pickedBook)) {
+                    throw new BookstoreException(ErrorCode.BOOKLIST_NO_ID);
+                }
+            } catch (Exception e) {
+                System.out.println();
                 continue;
             }
 
