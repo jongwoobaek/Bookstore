@@ -1,7 +1,7 @@
 package bookstore.bookstoreException;
 
 public enum ErrorCode implements EnumModel{
-    INVALID_INPUT_PHONENUMBER(400, "유효하지 않는 전화번호 형식입니다.", "P001");
+    INVALID_INPUT_PHONENUMBER(400, "The phone number format is not valid.", "P001");
 
     private  int status;
     private  String code;

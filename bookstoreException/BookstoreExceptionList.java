@@ -9,9 +9,7 @@ public class BookstoreExceptionList {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phoneNumber);
 
-        if (matcher.matches()) {
-            return false;
-        }
+        if (matcher.matches()) return false;
 
         return true;
     }
