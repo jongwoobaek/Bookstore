@@ -27,13 +27,14 @@ public class Order {
      */
     public void login() {
         System.out.println("\n[Login]");
+
         String name;
 
         while (true) {
-            System.out.print("Please enter your name : ");
-            String tempName = sc.next();
-
             try {
+                System.out.print("Please enter your name : ");
+                String tempName = sc.next();
+
                 if (error.isValidName(tempName)) throw new BookstoreException(ErrorCode.INVALID_INPUT_NAME);
                 else {
                     name = tempName;
@@ -42,17 +43,16 @@ public class Order {
             } catch (Exception e) {
                 System.out.println();
             }
-
         }
 
         String phoneNumber;
 
         while (true) {
-            System.out.print("Please enter your phone number(010-0000-0000) : ");
-            String inputPhoneNum = sc.next();
-
             try {
-                if (error.isValidPhoneNumber(inputPhoneNum)){
+                System.out.print("Please enter your phone number(010-0000-0000) : ");
+                String inputPhoneNum = sc.next();
+
+                if (error.isValidPhoneNumber(inputPhoneNum)) {
                     throw new BookstoreException(ErrorCode.INVALID_INPUT_PHONENUMBER);
                 } else {
                     phoneNumber = inputPhoneNum;
@@ -67,7 +67,6 @@ public class Order {
             } catch (Exception e) {
                 System.out.println();
             }
-
         }
     }
 
