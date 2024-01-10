@@ -33,14 +33,16 @@ public class Order {
             System.out.print("Please enter your name : ");
             String tempName = sc.next();
 
-            if (!tempName.matches("^[a-zA-Z가-힣]*$")) {
-                System.out.println("You can only enter letters!\n");
-
-                continue;
+            try {
+                if (error.isValidName(tempName)) throw new BookstoreException(ErrorCode.INVALID_INPUT_NAME);
+                else {
+                    name = tempName;
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println();
             }
 
-            name = tempName;
-            break;
         }
 
         String phoneNumber;
