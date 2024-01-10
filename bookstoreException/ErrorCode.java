@@ -2,6 +2,7 @@ package bookstore.bookstoreException;
 
 public enum ErrorCode implements EnumModel{
     INVALID_INPUT_PHONENUMBER(400, "The phone number format is not valid.", "P001"),
+    INVALID_INPUT_NAME(400, "You can only enter letters!", "N001"),
     BOOKLIST_NO_ID(404, "The entered ID is invalid!", "B001");
 
     private  int status;
