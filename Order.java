@@ -141,12 +141,12 @@ public class Order {
             }
 
             System.out.println("Would you like to add it to the basket? Y | N");
-            char inputAnswer = Character.toUpperCase(sc.next().charAt(0));
+            String inputAnswer = sc.next();
 
-            if (inputAnswer == 'Y') {
+            if (inputAnswer.equalsIgnoreCase("Y")) {
                 if (basket.containsKey(pickedBook)) basket.put(pickedBook, basket.get(pickedBook) + 1);
                 else basket.put(pickedBook, 1);
-            } else if (inputAnswer == 'N') {
+            } else if (inputAnswer.equalsIgnoreCase("N")) {
                 System.out.println("The item addition has been canceled");
                 break;
             } else {
