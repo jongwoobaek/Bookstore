@@ -35,6 +35,11 @@ public class Order {
                 System.out.print("Please enter your name : ");
                 String tempName = sc.next();
 
+                /**
+                 * 입력 받은 이름이 지정된 형식과 일치하는지 확인합니다.
+                 * 일치하지 않을 경우 exception을 발생시킵니다.
+                 * 일치할 경우 name에 입력 받은 이름을 할당합니다.
+                 */
                 if (error.isValidName(tempName)) throw new BookstoreException(ErrorCode.INVALID_INPUT_NAME);
                 else {
                     name = tempName;
@@ -47,6 +52,11 @@ public class Order {
 
         String phoneNumber;
 
+        /**
+         * 입력 받은 번호가 지정된 형식과 일치하는지 확인합니다.
+         * 일치하지 않을 경우 exception을 발생시킵니다.
+         * 일치할 경우 phoneNumber에 입력 받은 번호를 할당합니다.
+         */
         while (true) {
             try {
                 System.out.print("Please enter your phone number(010-0000-0000) : ");
@@ -56,6 +66,8 @@ public class Order {
                     throw new BookstoreException(ErrorCode.INVALID_INPUT_PHONENUMBER);
                 } else {
                     phoneNumber = inputPhoneNum;
+
+                    // 번호까지 일치하면 Customer 생성자에 입력 받은 값을 할당한 name과 phoneNumber를 이용하여 인스턴스를 생성합니다.
                     customer = new Customer(name, phoneNumber);
 
                     System.out.println("\n**************************");
