@@ -144,7 +144,7 @@ public class Order {
         System.out.println("Bsket has been emptied.");
     }
 
-    public void addBasketList() {
+    public void addBookToBasket() {
         for (String bookInfo : bookService.getBookInfo()) System.out.print(bookInfo);
 
         Book pickedBook = null;
