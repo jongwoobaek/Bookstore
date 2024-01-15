@@ -82,6 +82,9 @@ public class Order {
         }
     }
 
+    /**
+     * 프로그램 상에서 선택할 수 있는 메뉴 목록을 보여줍니다.
+     */
     public void showMenu() {
         System.out.println("\n******************************************************************************");
         System.out.printf("""
