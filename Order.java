@@ -103,6 +103,10 @@ public class Order {
         System.out.print("Please select a menu number. ");
     }
 
+    /**
+     * 로그인한 유저의 정보를 보여줍니다.
+     * 관리자 로그인을 했을 경우 Adminstrator mode를 띄워 줍니다.
+     */
     public void showCustomerInfo() {
         if (!(admin.name == null)) {
             System.out.println("\n======== Administrator mode ========");
