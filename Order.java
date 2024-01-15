@@ -145,7 +145,10 @@ public class Order {
     }
 
     /**
+     * 장바구니에 책을 추가하는 메소드 입니다.
      * bookService에 입력되어 있는 책들의 정보를 출력합니다.
+     * 사용자로부터 id를 입력 받고, id가 일치하지 않을 경우 exception을 발생시키고, 일치할 경우 basket에 해당 책을 추가하고 수량을 1씩
+     * 더해줍니다.
      * @see #bookService
      * @see #error
      */
