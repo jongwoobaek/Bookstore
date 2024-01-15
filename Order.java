@@ -118,6 +118,12 @@ public class Order {
         }
     }
 
+    /**
+     * checkAndPrintEmptyBasket 메소드를 호출하여 장바구니가 비어있는지를 확인합니다.
+     * 장바구니가 비어있지 않으면 showBookInfoAndQuantity 메소드를 호출합니다.
+     * @see #checkAndPrintEmptyBasket()
+     * @see #showBookInfoAndQuantity()
+     */
     public void showBasketList() {
         if (checkAndPrintEmptyBasket()) return;
 
