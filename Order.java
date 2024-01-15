@@ -35,10 +35,10 @@ public class Order {
                 System.out.print("Please enter your name : ");
                 String tempName = sc.next();
 
-                /**
-                 * 입력 받은 이름이 지정된 형식과 일치하는지 확인합니다.
-                 * 일치하지 않을 경우 exception을 발생시킵니다.
-                 * 일치할 경우 name에 입력 받은 이름을 할당합니다.
+                /*
+                  입력 받은 이름이 지정된 형식과 일치하는지 확인합니다.
+                  일치하지 않을 경우 exception을 발생시킵니다.
+                  일치할 경우 name에 입력 받은 이름을 할당합니다.
                  */
                 if (error.isValidName(tempName)) throw new BookstoreException(ErrorCode.INVALID_INPUT_NAME);
                 else {
@@ -52,10 +52,10 @@ public class Order {
 
         String phoneNumber;
 
-        /**
-         * 입력 받은 번호가 지정된 형식과 일치하는지 확인합니다.
-         * 일치하지 않을 경우 exception을 발생시킵니다.
-         * 일치할 경우 phoneNumber에 입력 받은 번호를 할당합니다.
+        /*
+          입력 받은 번호가 지정된 형식과 일치하는지 확인합니다.
+          일치하지 않을 경우 exception을 발생시킵니다.
+          일치할 경우 phoneNumber에 입력 받은 번호를 할당합니다.
          */
         while (true) {
             try {
@@ -144,23 +144,36 @@ public class Order {
         System.out.println("Bsket has been emptied.");
     }
 
+    /**
+     * bookService에 입력되어 있는 책들의 정보를 출력합니다.
+     * @see #bookService
+     * @see #error
+     */
     public void addBookToBasket() {
         for (String bookInfo : bookService.getBookInfo()) System.out.print(bookInfo);
 
+        // id를 통해 선택될 Book의 인스턴스를 null로 초기화 합니다.
         Book pickedBook = null;
 
         while (true) {
+            // Book에 인스턴스가 할당되면 반복문이 종료됩니다.
             if (pickedBook != null) break;
 
+            // 사용자로부터 id를 입력받기 위해 메세지를 출력합니다.
             System.out.print("Please enter the ID of the book to add to the basket :");
             String inputID = sc.next();
 
+            /*
+              bookService.getBookList() 메소드를 통해 Book들이 저장되어 있는 List를 불러옵니다.
+              입력 받은 id와 일치하는 Book이 있을 경우 pickedBook에 해당 Book을 할당합니다.
+             */
             for (Book book : bookService.getBookList()) {
                 if (book.getId().equals(inputID)) {
                     pickedBook = book;
                 }
             }
 
+            // 입력 받은 id가 유효하지 않을 경우 exception을 발생시키고, 반복문에 계속됩니다.
             try {
                 if (!error.isExistBookId(pickedBook)) {
                     throw new BookstoreException(ErrorCode.BOOKLIST_NO_ID);
@@ -170,11 +183,17 @@ public class Order {
                 continue;
             }
 
+            // id가 유효할 경우 사용자에게 입력 확인 메세지를 출력합니다.
             System.out.println("Would you like to add it to the basket? Y | N");
             String inputAnswer = sc.next();
 
             if (inputAnswer.equalsIgnoreCase("Y")) {
+                /*
+                  "y" or "Y"가 입력 되었을 때, basket에 pickedBook이 포함되어 있지 않을 경우 basket의 키에 pickedBook을
+                  입력하고, 값에 기존에 입력 되어 있던 값에 1을 더해줍니다.
+                 */
                 if (basket.containsKey(pickedBook)) basket.put(pickedBook, basket.get(pickedBook) + 1);
+                // 그렇지 않을 경우 키에 pickedBook을 입력하고, 값에 1을 입력합니다.
                 else basket.put(pickedBook, 1);
             } else if (inputAnswer.equalsIgnoreCase("N")) {
                 System.out.println("The item addition has been canceled");
