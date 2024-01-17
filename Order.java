@@ -234,19 +234,19 @@ public class Order {
         String inputID = sc.next();
 
         // 사용자로부터 입력받은 id에 해당하는 책이 장바구니에 존재하는지 확인하기 위한 boolean입니다.
-        boolean isVerifiedID = false;
+        boolean isExists = false;
 
         for (Book book : basket.keySet()) {
             if (book.getId().equals(inputID)) {
                 basket.put(book, basket.get(book) - 1);
                 // id와 일치하는 책이 존재하면 boolean을 true로 변경시킵니다.
-                isVerifiedID = true;
+                isExists = true;
 
                 if (basket.get(book) == 0) basket.remove(book);
             }
         }
 
-        if (!isVerifiedID) {
+        if (!isExists) {
             System.out.println("\nThere is no matching item.");
             return;
         }
