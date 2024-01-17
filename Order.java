@@ -243,6 +243,8 @@ public class Order {
                 isExists = true;
 
                 if (basket.get(book) == 0) basket.remove(book);
+
+                break;
             }
         }
 
