@@ -150,7 +150,7 @@ public class Order {
     /**
      * 장바구니에 책을 추가하는 메소드 입니다.
      * bookService에 입력되어 있는 책들의 정보를 출력합니다.
-     * 사용자로부터 id를 입력 받고, id가 일치하지 않을 경우 exception을 발생시키고, 일치할 경우 basket에 해당 책을 추가하고 수량을 1씩
+     * 사용자로부터 id를 입력 받고, id가 일치하지 않을 경우 exception을 발생시키고, 일치할 경우 basket에 해당 책을 추가하고 수량을 1
      * 더해줍니다.
      * @see #bookService
      * @see #error
@@ -213,6 +213,18 @@ public class Order {
         }
     }
 
+    /**
+     * 장바구니에 존재하는 책들 중 사용자가 선택한 아이디와 일치하는 책의 수량을 1 감소시키는 메소드입니다.
+     * checkAndPrintEmptyBasket 메소드를 호출하여 장바구니가 비어있는지를 확인합니다.
+     * 장바구니가 비어있지 않을 경우 showBookInfoAndQuantity 메소드를 호출합니다.
+     * 사용자로부터 id를 입력 받습니다.
+     * id가 존재하면 해당하는 책의 수량을 1 감소시킵니다.
+     * 그렇지 않을 경우 메세지를 출력합니다.
+     * 마지막으로 변경된 값을 확인하기 위해 showBasketList 메소드를 호출합니다.
+     * @see #checkAndPrintEmptyBasket()
+     * @see #showBookInfoAndQuantity()
+     * @see #showBasketList()
+     */
     public void reduceQuantity() {
         if (checkAndPrintEmptyBasket()) return;
 
@@ -221,11 +233,13 @@ public class Order {
         System.out.print("Please enter the ID of the item to decrease its quantity: ");
         String inputID = sc.next();
 
+        // 사용자로부터 입력받은 id에 해당하는 책이 장바구니에 존재하는지 확인하기 위한 boolean입니다.
         boolean isVerifiedID = false;
 
         for (Book book : basket.keySet()) {
             if (book.getId().equals(inputID)) {
                 basket.put(book, basket.get(book) - 1);
+                // id와 일치하는 책이 존재하면 boolean을 true로 변경시킵니다.
                 isVerifiedID = true;
 
                 if (basket.get(book) == 0) basket.remove(book);
