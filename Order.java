@@ -135,6 +135,7 @@ public class Order {
     }
 
     /**
+     * 사용자의 장바구니를 비우는 메소드입니다.
      * checkAndPrintEmptyBasket 메소드를 호출하여 장바구니가 비어있는지를 확인합니다.
      * 장바구니가 비어있지 않으면 장바구니를 비운 후 메세지를 출력합니다.
      * @see #checkAndPrintEmptyBasket()
