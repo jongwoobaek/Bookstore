@@ -256,6 +256,15 @@ public class Order {
         showBasketList();
     }
 
+    /**
+     * 사용자가 입력한 id에 해당하는 책을 장바구니에 모두 삭제하는 메소드입니다.
+     * 입력 받은 id에 해당하는 책이 장바구니에 존재하지 않을 경우 메세지를 출력하고 메소드를 종료시킵니다.
+     * checkAndPrintEmptyBasket 메소드를 호출하여 장바구니가 비어있는지를 확인합니다.
+     * 장바구니가 비어있지 않을 경우 showBookInfoAndQuantity 메소드를 호출합니다.
+     * @see #checkAndPrintEmptyBasket
+     * @see #showBookInfoAndQuantity
+     * @see #showBasketList
+     */
     public void deleteBook() {
         if (checkAndPrintEmptyBasket()) return;
 
@@ -264,18 +273,19 @@ public class Order {
         System.out.print("Please enter the ID of the item to delete. ");
         String inputID = sc.next();
 
-        boolean isVerifiedID = false;
+        boolean isVerifiedID = false; // 입력 받은 id에 해당하는 책이 장바구니에 존재하는지 확인하기 위한 boolean입니다.
         Book targetBook = null;
 
         for (Book book : basket.keySet()) {
             if (book.getId().equals(inputID)) {
+                isVerifiedID = true; // 입력 받은 id에 해당하는 책이 장바구에 존재할 경우 true로 바꾸어줍니다.
                 targetBook = book;
-                isVerifiedID = true;
             }
         }
 
         basket.remove(targetBook);
 
+        // 입력 받은 id에 해당하는 책이 장바구니에 존재하지 않을 경우 아래 로직이 실행됩니다.
         if (!isVerifiedID) {
             System.out.println("\nThere is no matching item.");
             return;
