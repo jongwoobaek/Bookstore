@@ -273,18 +273,18 @@ public class Order {
         System.out.print("Please enter the ID of the item to delete. ");
         String inputID = sc.next();
 
-        boolean isVerifiedID = false; // 입력 받은 id에 해당하는 책이 장바구니에 존재하는지 확인하기 위한 boolean입니다.
+        boolean isExists = false; // 입력 받은 id에 해당하는 책이 장바구니에 존재하는지 확인하기 위한 boolean입니다.
 
         for (Book book : basket.keySet()) {
             if (book.getId().equals(inputID)) {
-                isVerifiedID = true; // 입력 받은 id에 해당하는 책이 장바구에 존재할 경우 true로 바꾸어줍니다.
+                isExists = true; // 입력 받은 id에 해당하는 책이 장바구에 존재할 경우 true로 바꾸어줍니다.
                 basket.remove(book);
                 break;
             }
         }
 
         // 입력 받은 id에 해당하는 책이 장바구니에 존재하지 않을 경우 아래 로직이 실행됩니다.
-        if (!isVerifiedID) {
+        if (!isExists) {
             System.out.println("\nThere is no matching item.");
             return;
         }
