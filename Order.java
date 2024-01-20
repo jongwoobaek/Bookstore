@@ -274,16 +274,14 @@ public class Order {
         String inputID = sc.next();
 
         boolean isVerifiedID = false; // 입력 받은 id에 해당하는 책이 장바구니에 존재하는지 확인하기 위한 boolean입니다.
-        Book targetBook = null;
 
         for (Book book : basket.keySet()) {
             if (book.getId().equals(inputID)) {
                 isVerifiedID = true; // 입력 받은 id에 해당하는 책이 장바구에 존재할 경우 true로 바꾸어줍니다.
-                targetBook = book;
+                basket.remove(book);
+                break;
             }
         }
-
-        basket.remove(targetBook);
 
         // 입력 받은 id에 해당하는 책이 장바구니에 존재하지 않을 경우 아래 로직이 실행됩니다.
         if (!isVerifiedID) {
