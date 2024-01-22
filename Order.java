@@ -299,6 +299,7 @@ public class Order {
      * checkAndPrintEmptyBasket 메소드를 호출하여 장바구니가 비어있는지 확인합니다.
      * 장바구니가 비어있지 않으면 totalQuantity에 장바구니에 추가된 책들의 수량을 더해주고, totalPrice에 모든 책들의 가격을 더해줍니다.
      * 마지막으로 이 값을 사용자에게 출력해줍니다.
+     * @see #checkAndPrintEmptyBasket()
      */
     public void showReceipt() {
         if (checkAndPrintEmptyBasket()) return;
