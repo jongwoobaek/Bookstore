@@ -327,7 +327,14 @@ public class Order {
         System.out.printf("Total %d books | Amount %d won%n", totalQuantity, totalPrice);
     }
 
+    /**
+     * 관리자 로그인을 실행하는 메소드입니다.
+     * 사용자에게 아이디와, 비밀번호를 입력 받아 관리자 아이디, 비밀번호와 일치하는지 확인합니다.
+     * 일치할 경우 admin 인스턴스에 사용자의 이름과 연락처를 입력한 후 admin.getPersonInfo를 호출합니다.
+     * @see #admin
+     */
     public void adminLogin() {
+        // admin 인스턴스에 이름이 존재 한다는 것은 관리자 로그인이 되어있는 상태이다.
         if (!(admin.name == null)) {
             System.out.println("You are already logged in");
             return;
@@ -351,6 +358,10 @@ public class Order {
             return;
         }
 
+        /*
+          사용자가 입력한 아이디와 비밀번호가 기존에 입력되어 있는 관리자 아이디와 비밀번호가 일치할 경우 싱글톤 패턴을 통해 생성되어 있는
+          admin 객체의 set메소드를 이용하여 admin객체에 정보를 입력합니다.
+         */
         admin.setName(customer.name);
         admin.setPhoneNumber(customer.phoneNumber);
         admin.setId(adminId);
