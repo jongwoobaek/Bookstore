@@ -134,6 +134,14 @@ public class Order {
         showBookInfoAndQuantity();
     }
 
+    private void showBookInfoAndQuantity() {
+        basket.forEach((book, quantity) -> {
+            System.out.printf("Quantity: %d books:%n" +
+                            "%s%n",
+                    quantity, book.toString());
+        });
+    }
+
     /**
      * 사용자의 장바구니를 비우는 메소드입니다.
      * checkAndPrintEmptyBasket 메소드를 호출하여 장바구니가 비어있는지를 확인합니다.
@@ -376,14 +384,6 @@ public class Order {
     public void exit() {
         System.out.println("Exit the program.");
         System.exit(0);
-    }
-
-    private void showBookInfoAndQuantity() {
-        basket.forEach((book, quantity) -> {
-            System.out.printf("Quantity: %d books:%n" +
-                            "%s%n",
-                    quantity, book.toString());
-        });
     }
 
     private boolean checkAndPrintEmptyBasket() {
