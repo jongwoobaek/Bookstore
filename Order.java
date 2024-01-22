@@ -370,6 +370,9 @@ public class Order {
         System.out.println(admin.getPersonInfo());
     }
 
+    /**
+     * 프로그램을 종료시키는 메소드입니다.
+     */
     public void exit() {
         System.out.println("Exit the program.");
         System.exit(0);
