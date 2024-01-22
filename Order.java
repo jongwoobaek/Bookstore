@@ -147,6 +147,9 @@ public class Order {
         return false;
     }
 
+    /**
+     * 장바구니에 있는 각 책에 대한 정보와 해당 책의 수량에 대한 정보를 출력합니다.
+     */
     private void showBookInfoAndQuantity() {
         basket.forEach((book, quantity) -> {
             System.out.printf("Quantity: %d books:%n" +
