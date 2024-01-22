@@ -134,6 +134,10 @@ public class Order {
         showBookInfoAndQuantity();
     }
 
+    /**
+     * isEmpty메소드를 이용하여 장바구니가 비어있는지 여부를 확인한 후 비어있을 경우 true를 반환하고, 비어있지 않을 경우 false를 반환한다.
+     * @return 장바구니가 비어있는지 여부
+     */
     private boolean checkAndPrintEmptyBasket() {
         if (basket.isEmpty()) {
             System.out.println("The basket is empty.");
