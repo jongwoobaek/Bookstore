@@ -134,6 +134,15 @@ public class Order {
         showBookInfoAndQuantity();
     }
 
+    private boolean checkAndPrintEmptyBasket() {
+        if (basket.isEmpty()) {
+            System.out.println("The basket is empty.");
+            return true;
+        }
+
+        return false;
+    }
+
     private void showBookInfoAndQuantity() {
         basket.forEach((book, quantity) -> {
             System.out.printf("Quantity: %d books:%n" +
@@ -384,14 +393,5 @@ public class Order {
     public void exit() {
         System.out.println("Exit the program.");
         System.exit(0);
-    }
-
-    private boolean checkAndPrintEmptyBasket() {
-        if (basket.isEmpty()) {
-            System.out.println("The basket is empty.");
-            return true;
-        }
-
-        return false;
     }
 }
