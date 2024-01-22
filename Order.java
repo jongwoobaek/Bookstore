@@ -294,6 +294,12 @@ public class Order {
         showBasketList();
     }
 
+    /**
+     * 장바구니에 추가된 각 책들의 수량과 가격을 계산하여 사용자에게 영수증을 출력해주는 메소드입니다.
+     * checkAndPrintEmptyBasket 메소드를 호출하여 장바구니가 비어있는지 확인합니다.
+     * 장바구니가 비어있지 않으면 totalQuantity에 장바구니에 추가된 책들의 수량을 더해주고, totalPrice에 모든 책들의 가격을 더해줍니다.
+     * 마지막으로 이 값을 사용자에게 출력해줍니다.
+     */
     public void showReceipt() {
         if (checkAndPrintEmptyBasket()) return;
 
@@ -302,10 +308,16 @@ public class Order {
         int totalQuantity = 0;
         int totalPrice = 0;
 
+        // basket의 value는 책의 수량입니다. 이를 통해 장바구니에 담겨있는 책들의 수량의 합을 구합니다.
         for (int quantity : basket.values()) {
             totalQuantity += quantity;
         }
 
+        /*
+          basket의 key는 Book 인스턴스 입니다. getPrice메소드를 이용하여 각 책의 값을 구하고 basket.get() 메소드를 통해 각 책의
+          수량을 가져옵니다.
+          책의 가격과 수량을 곱한 후 totalPrice에 더해줍니다.
+         */
         for (Book book : basket.keySet()) {
             totalPrice += book.getPrice() * basket.get(book);
         }
